@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Persona } from './models/persona.model';
+import { LoggingService } from './services/logging.service';
 
 @Component({
   selector: 'app-root',
@@ -15,13 +16,14 @@ export class AppComponent implements AfterViewInit {
     new Persona('Karla', 'Lara'),
   ];
 
-  constructor() {
+  constructor(private loggingService: LoggingService) {
   }
 
   ngAfterViewInit(): void {
   }
 
   personaAgregada(persona: Persona): void {
+    this.loggingService.enviarMensajeAConsola('Agregamos al arreglo la nueva persona:' + persona.nombre)
     this.personas.push(persona);
   }
 
