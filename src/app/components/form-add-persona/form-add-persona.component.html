@@ -3,7 +3,7 @@
         <label for="nombre" class="visually-hidden">Nombre</label>
         <input type="text" name="nombre" id="nombre" placeholder="Nombre" class="form-control"
             [(ngModel)]="persona.nombre" required #nombre="ngModel"
-            [ngClass]="{'is-invalid': !persona.nombre && nombre.control.touched}" />
+            [ngClass]="{'is-invalid': !persona?.nombre && nombre?.control?.touched}" />
         <div class="invalid-feedback">
             Por favor, ingrese un nombre
         </div>
@@ -12,12 +12,12 @@
         <label for="apellido" class="visually-hidden">Apellido</label>
         <input type="text" name="apellido" id="apellido" placeholder="Apellido" class="form-control"
             [(ngModel)]="persona.apellido" required #apellido="ngModel"
-            [ngClass]="{'is-invalid': !persona.apellido && apellido.control.touched}" />
+            [ngClass]="{'is-invalid': !persona?.apellido && apellido?.control?.touched}" />
         <div class="invalid-feedback">
             Por favor, ingrese un apellido
         </div>
     </div>
     <div class="col">
-        <button type="submit" class="btn btn-primary" [disabled]="frmAddPerson.invalid">Agregar</button>
+        <button type="submit" class="btn btn-primary" [disabled]="frmAddPerson?.invalid">Agregar</button>
     </div>
 </form>
