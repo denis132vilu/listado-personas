@@ -1,9 +1,9 @@
-<div class="container">
+<div class="container py-3 py-sm-5">
   <div class="col">
     <h3>{{ titulo }}</h3>
   </div>
   <hr />
-  <app-form-add-persona (personaCreada)="personaAgregada($event)"></app-form-add-persona>
+  <app-form-add-persona></app-form-add-persona>
   <hr />
   <app-persona *ngFor="let personaElem of personas; let i = index" [persona]="personaElem" [indice]="i">
   </app-persona>

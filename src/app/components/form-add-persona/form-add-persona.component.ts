@@ -1,7 +1,8 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Persona } from 'src/app/models/persona.model';
 import { LoggingService } from 'src/app/services/logging.service';
+import { PersonasService } from 'src/app/services/personas.service';
 
 @Component({
   selector: 'app-form-add-persona',
@@ -10,12 +11,17 @@ import { LoggingService } from 'src/app/services/logging.service';
 })
 export class FormAddPersonaComponent implements OnInit {
   @ViewChild('frmAddPerson') frmAddPerson: NgForm | undefined;
-  @Output() personaCreada = new EventEmitter<Persona>();
 
   persona: Persona;
 
-  constructor(private loggingService: LoggingService) {
+  constructor(
+    private loggingService: LoggingService,
+    private personasService: PersonasService,
+  ) {
     this.persona = this.getNewPersona();
+    this.personasService.saludar.subscribe((indice: number) => {
+      alert('El indice es: ' + indice);
+    });
   }
 
   ngOnInit(): void {
@@ -28,8 +34,7 @@ export class FormAddPersonaComponent implements OnInit {
   agregarPersona(): void {
     if (this.frmAddPerson?.invalid) return;
     let persona = this.getNewPersona(this.persona.nombre, this.persona.apellido);
-    this.loggingService.enviarMensajeAConsola('Enviamos persona con nombre:' + persona.nombre + " apellido:" + persona.apellido);
-    this.personaCreada.emit(persona);
+    this.personasService.agregarPersona(persona);
     this.persona = this.getNewPersona();
     this.frmAddPerson?.form.reset();
   }

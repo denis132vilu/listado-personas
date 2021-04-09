@@ -1,30 +1,25 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Persona } from './models/persona.model';
 import { LoggingService } from './services/logging.service';
+import { PersonasService } from './services/personas.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements AfterViewInit {
+export class AppComponent implements OnInit {
   titulo = 'Listado de Personas';
-  personas: Persona[] = [
-    new Persona('Juan', 'Pérez'),
-    new Persona('Laura', 'Juárez'),
-    new Persona('Karla', 'Lara'),
-  ];
+  personas: Persona[] = [];
 
-  constructor(private loggingService: LoggingService) {
+  constructor(
+    private loggingService: LoggingService,
+    private personasService: PersonasService,
+  ) {
   }
 
-  ngAfterViewInit(): void {
+  ngOnInit(): void {
+    this.personas = this.personasService.personas;
   }
-
-  personaAgregada(persona: Persona): void {
-    this.loggingService.enviarMensajeAConsola('Agregamos al arreglo la nueva persona:' + persona.nombre)
-    this.personas.push(persona);
-  }
-
 }
